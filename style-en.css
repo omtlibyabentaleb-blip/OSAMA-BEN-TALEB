@@ -1,0 +1,32 @@
+html[dir="ltr"]{scroll-padding-top:36px}
+html[dir="ltr"]:root{font-family:"Manrope","Alexandria",sans-serif}
+html[dir="ltr"] body{font-family:"Manrope","Alexandria",sans-serif}
+html[dir="ltr"] .fixed-sidebar{inset:0 auto 0 0;border-left:0;border-right:1px solid var(--line)}
+html[dir="ltr"] .side-nav a.active{box-shadow:inset 2px 0 var(--accent)}
+html[dir="ltr"] main,html[dir="ltr"] .site-footer{margin:0 0 0 var(--sidebar)}
+html[dir="ltr"] .hero-copy,html[dir="ltr"] .hero-art{direction:ltr}
+html[dir="ltr"] .hero h1{letter-spacing:-.045em}
+html[dir="ltr"] .eyebrow i{margin:0 8px 0 0}
+html[dir="ltr"] .text-link span{margin:0 0 0 8px}
+html[dir="ltr"] .portrait-tag{right:auto;left:16px}
+html[dir="ltr"] .scroll-cue{right:auto;left:clamp(24px,5vw,70px)}
+html[dir="ltr"] .quick-sections{right:clamp(24px,5vw,70px);left:auto}
+html[dir="ltr"] .quick-current{margin:0 0 0 auto}
+html[dir="ltr"] .quick-links{right:0;left:auto;transform-origin:top right}
+html[dir="ltr"] .quick-links a:hover,html[dir="ltr"] .quick-links a.active{transform:translateX(3px)}
+html[dir="ltr"] .software-shortcuts{right:calc(clamp(24px,5vw,70px) + 166px);left:auto}
+html[dir="ltr"] .software-empty{margin-inline-start:auto}
+html[dir="ltr"] .book-index{left:auto;right:14px}
+html[dir="ltr"] .press-note,html[dir="ltr"] .org-publications{border-right:0;border-left:2px solid var(--accent)}
+html[dir="ltr"] .affiliation-list ul{padding:0 0 0 18px}
+html[dir="ltr"] .gallery-item{text-align:left}
+html[dir="ltr"] .gallery-item>span{inset:auto 0 0}
+html[dir="ltr"] .archive-media-logos img{object-fit:contain;background:#f4f3ef}
+html[dir="ltr"] .language-switch{left:calc(var(--sidebar) + 18px);right:auto}
+html[dir="ltr"] .site-footer>p{margin:0 auto 0 0}
+.language-switch{position:fixed;z-index:25;top:16px;left:18px;min-width:54px;height:36px;display:flex;align-items:center;justify-content:center;gap:6px;padding:0 9px;border:1px solid var(--line);border-radius:7px;background:rgba(12,19,32,.92);backdrop-filter:blur(14px);color:var(--text);font:600 10px "Manrope",sans-serif;letter-spacing:.06em;box-shadow:0 8px 24px rgba(0,0,0,.14);transition:transform .25s,border-color .25s,box-shadow .25s}
+.language-switch svg{width:16px;height:16px;fill:none;stroke:var(--accent);stroke-width:1.5;transition:transform .35s}
+.language-switch:hover,.language-switch:focus-visible{transform:translateY(-2px);border-color:rgba(230,162,74,.6);box-shadow:0 8px 24px rgba(230,162,74,.12)}
+.language-switch:hover svg{transform:rotate(22deg)}
+@media(max-width:900px){html[dir="ltr"] main,html[dir="ltr"] .site-footer{margin:0}.language-switch{top:10px;left:12px;right:auto;min-width:48px;height:32px;padding:0 7px}html[dir="ltr"] .language-switch{left:12px;right:auto}html[dir="ltr"] .quick-sections{right:12px;left:auto}html[dir="ltr"] .software-shortcuts{right:158px;left:auto}}
+@media(max-width:420px){.language-switch{left:10px;min-width:44px;height:30px;top:9px}html[dir="ltr"] .language-switch{left:10px}}

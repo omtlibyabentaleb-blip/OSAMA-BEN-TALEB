@@ -82,6 +82,7 @@ navLinks.forEach(link => {
     setTimeout(() => { ripple.remove(); link.classList.remove('nav-clicked'); }, 600);
   });
 });
+const isEnglish = document.documentElement.lang.toLowerCase().startsWith('en');
 const archiveItems = window.portfolioItems || [];
 const archiveGrid = document.querySelector('#archive-grid');
 const archiveFilters = document.querySelector('.archive-filters');
@@ -104,8 +105,8 @@ function renderArchive() {
   if (!archiveGrid) return;
   const matches = matchingArchiveItems();
   const total = document.querySelector('#archive-total');
-  if (total) total.textContent = archiveItems.length.toLocaleString('ar');
-  if (archiveFilters) archiveFilters.innerHTML = `<button class="filter-chip ${activeCategory === 'all' ? 'active' : ''}" type="button" data-filter="all">كل المجالات</button>` + categoryList.map(category => `<button class="filter-chip ${activeCategory === category.slug ? 'active' : ''}" type="button" data-filter="${escapeHtml(category.slug)}">${escapeHtml(category.label)}</button>`).join('');
+  if (total) total.textContent = archiveItems.length.toLocaleString(isEnglish ? 'en' : 'ar');
+  if (archiveFilters) archiveFilters.innerHTML = `<button class="filter-chip ${activeCategory === 'all' ? 'active' : ''}" type="button" data-filter="all">${isEnglish ? 'All categories' : 'كل المجالات'}</button>` + categoryList.map(category => `<button class="filter-chip ${activeCategory === category.slug ? 'active' : ''}" type="button" data-filter="${escapeHtml(category.slug)}">${escapeHtml(category.label)}</button>`).join('');
   const shown = matches.slice(0, visibleCount);
   archiveGrid.innerHTML = shown.map(item => `<a class="archive-card" href="${escapeHtml(item.src)}" data-lightbox data-caption="${escapeHtml(item.title)} — ${escapeHtml(item.label)}"><div class="archive-card-image archive-media-${escapeHtml(item.category)}"><img src="${escapeHtml(item.src)}" alt="${escapeHtml(item.alt)}" loading="lazy"></div><div class="archive-card-info"><span class="archive-card-category">${escapeHtml(item.label)}</span><h4 class="archive-card-title">${escapeHtml(item.title)}</h4></div></a>`).join('');
   if (archiveEmpty) archiveEmpty.hidden = matches.length !== 0;
@@ -185,7 +186,7 @@ if (slideshow) {
   let slideTimer;
   let paused = false;
   let slideProgressAnimation;
-  dots.innerHTML = slides.map((_, index) => `<button type="button" class="slide-dot" aria-label="عرض العمل ${index + 1}" aria-current="${index === 0 ? 'true' : 'false'}"></button>`).join('');
+  dots.innerHTML = slides.map((_, index) => `<button type="button" class="slide-dot" aria-label="${isEnglish ? 'Show project' : 'عرض العمل'} ${index + 1}" aria-current="${index === 0 ? 'true' : 'false'}"></button>`).join('');
   const dotButtons = [...dots.querySelectorAll('.slide-dot')];
   function showSlide(index) {
     slideIndex = (index + slides.length) % slides.length;
@@ -222,7 +223,7 @@ if (slideshow) {
   pauseButton.addEventListener('click', () => {
     paused = !paused;
     pauseButton.textContent = paused ? '▶' : 'Ⅱ';
-    pauseButton.setAttribute('aria-label', paused ? 'استئناف العرض التلقائي' : 'إيقاف العرض التلقائي');
+    pauseButton.setAttribute('aria-label', isEnglish ? (paused ? 'Resume slideshow' : 'Pause slideshow') : (paused ? 'استئناف العرض التلقائي' : 'إيقاف العرض التلقائي'));
     paused ? stopTimer() : startTimer();
   });
   slideshow.parentElement.addEventListener('mouseenter', stopTimer);
