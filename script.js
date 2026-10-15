@@ -228,8 +228,8 @@ if (slideshow) {
     stopTimer();
     if (!paused && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
       const progressFill = controls.querySelector('.slide-progress i');
-      if (progressFill) slideProgressAnimation = progressFill.animate([{ transform: 'scaleX(0)' }, { transform: 'scaleX(1)' }], { duration: 2750, easing: 'linear', fill: 'forwards' });
-      slideTimer = setInterval(() => { showSlide(slideIndex + 1); startTimer(); }, 2750);
+      if (progressFill) slideProgressAnimation = progressFill.animate([{ transform: 'scaleX(0)' }, { transform: 'scaleX(1)' }], { duration: 2400, easing: 'linear', fill: 'forwards' });
+      slideTimer = setInterval(() => { showSlide(slideIndex + 1); startTimer(); }, 2400);
     }
   }
   controls.querySelector('.slide-prev').addEventListener('click', () => { showSlide(slideIndex - 1); startTimer(); });
