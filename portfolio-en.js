@@ -31,5 +31,5 @@ window.portfolioItems = (window.portfolioItems || []).map(item => {
   const number = String(count).padStart(2, '0');
   const label = archiveLabels[category] || 'Selected work';
   const title = `${archiveTitles[category] || label} — ${number}`;
-  return { ...item, label, title, alt: `${label}: ${title}` };
+  return { ...item, label, title: item.englishTitle || title, alt: `${label}: ${item.englishTitle || title}` };
 });

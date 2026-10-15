@@ -94,13 +94,22 @@ let visibleCount = 12;
 let searchTerm = '';
 let imageItems = [];
 const categoryList = [...new Map(archiveItems.map(item => [item.category, { slug: item.category, label: item.label }])).values()];
+categoryList.push({ slug: 'revit', label: isEnglish ? 'Revit projects' : 'أعمال Revit' });
 function escapeHtml(value) {
   return String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
 }
 function matchingArchiveItems() {
-  return archiveItems.filter(item => (activeCategory === 'all' || item.category === activeCategory) && (!searchTerm || `${item.title} ${item.label} ${item.src.split('/').pop()}`.toLocaleLowerCase('ar').includes(searchTerm.toLocaleLowerCase('ar'))));
+  return archiveItems.filter(item => (activeCategory === 'all' || item.category === activeCategory || item.tools?.includes(activeCategory)) && (!searchTerm || `${item.title} ${item.englishTitle || ''} ${item.label} ${item.src.split('/').pop()}`.toLocaleLowerCase(isEnglish ? 'en' : 'ar').includes(searchTerm.toLocaleLowerCase(isEnglish ? 'en' : 'ar'))));
 }
 function bindLightboxItems() { imageItems = [...document.querySelectorAll('[data-lightbox]')]; }
+const revitCard = document.querySelector('#tool-revit');
+const revitProjects = archiveItems.filter(item => item.tools?.includes('revit'));
+if (revitCard && revitProjects.length) {
+  const projectGallery = document.createElement('div');
+  projectGallery.className = 'revit-projects';
+  projectGallery.innerHTML = `<div class="revit-projects-heading"><strong>${isEnglish ? 'Architectural design studies' : 'تصميمات معمارية'}</strong><span>${revitProjects.length} ${isEnglish ? 'projects' : 'تصميماً'}</span></div><div class="revit-project-strip">${revitProjects.map(item => `<a href="${escapeHtml(item.src)}" data-lightbox data-caption="${escapeHtml(item.title)}" aria-label="${isEnglish ? 'View' : 'عرض'} ${escapeHtml(item.title)}"><img src="${escapeHtml(item.src)}" alt="${escapeHtml(item.alt)}" loading="lazy"></a>`).join('')}</div>`;
+  revitCard.append(projectGallery);
+}
 function renderArchive() {
   if (!archiveGrid) return;
   const matches = matchingArchiveItems();
@@ -165,6 +174,15 @@ addEventListener('keydown', event => {
   if (event.key === 'ArrowRight') showImage(currentIndex + 1);
 });
 renderArchive();
+document.querySelector('.software-shortcuts')?.addEventListener('click', event => {
+  const shortcut = event.target.closest('[data-archive-filter]');
+  if (!shortcut) return;
+  event.preventDefault();
+  activeCategory = shortcut.dataset.archiveFilter;
+  visibleCount = 12;
+  renderArchive();
+  document.querySelector('#archive')?.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth', block: 'start' });
+});
 archiveFilters?.addEventListener('click', event => {
   const button = event.target.closest('[data-filter]');
   if (!button) return;
